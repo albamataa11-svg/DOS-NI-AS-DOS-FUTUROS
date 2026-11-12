@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dos niñas: Entrada</title>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: illustrated "lámina" per scene on a playful pastel wall; Zahra = lapis + turquoise girih, Emma = coral + azulejo; each room has its own accent */
+:root{
+  --bg:#f4f1ff; --ink:#1d1a3a; --muted:#5d5a7a; --panel:#ffffff; --line:#d9d4f0; --wall:#1d1a3a;
+  --zahra:#2f5bea; --zahra-ink:#2448c9; --zahra-soft:#e3eaff; --turq:#3cc7b9;
+  --emma:#ff6b4a; --emma-ink:#d8431f; --emma-soft:#ffe6dd;
+  --gold:#ffc93c; --mint:#2ec4a6; --room:#7b5cff; --room-soft:#ece6ff;
+  --f-display:"Fredoka", "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --f-body:"Nunito", "Segoe UI", system-ui, sans-serif;
+  --f-data:"DM Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box} [hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.55;
+  background-image:
+   radial-gradient(circle at 8% 12%, color-mix(in srgb,var(--room) 22%,transparent) 0 120px, transparent 121px),
+   radial-gradient(circle at 96% 30%, color-mix(in srgb,var(--gold) 35%,transparent) 0 90px, transparent 91px),
+   radial-gradient(circle at 90% 96%, color-mix(in srgb,var(--turq) 25%,transparent) 0 140px, transparent 141px),
+   radial-gradient(color-mix(in srgb,var(--room) 18%,transparent) 1.4px, transparent 1.6px);
+  background-size:auto,auto,auto,22px 22px; background-attachment:fixed}
+.app{min-height:100%;display:flex;flex-direction:column;max-width:1120px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 20px;gap:16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.plaque{display:inline-flex;align-items:center;gap:10px;font:600 17px/1 var(--f-display);color:var(--ink);background:var(--panel);
+  border:2.5px solid var(--ink);border-radius:999px;padding:6px 16px 6px 6px;box-shadow:3px 3px 0 var(--ink)}
+.plaque .ic{width:34px;height:34px;border-radius:50%;background:var(--room);display:grid;place-items:center;border:2px solid var(--ink)}
+.plaque .ic svg{width:20px;height:20px}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dots button{width:26px;height:10px;border-radius:999px;border:2px solid var(--ink);background:var(--panel);padding:0;cursor:pointer}
+.dots button[aria-current="true"]{background:var(--room);width:40px}
+.stage{flex:1;position:relative;background:var(--panel);border:3px solid var(--ink);border-radius:28px;
+  box-shadow:8px 8px 0 var(--room);overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0 0 auto 0;height:14px;background:
+  repeating-linear-gradient(90deg,var(--room) 0 28px,var(--gold) 28px 56px,var(--turq) 56px 84px,var(--emma) 84px 112px);border-bottom:3px solid var(--ink)}
+.slide{padding:clamp(26px,4.5vw,52px) clamp(18px,4.5vw,52px) clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:18px;min-height:560px;justify-content:center;animation:in .5s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes in{from{transform:translateY(14px) scale(.98);opacity:.3}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.slide,.modal .box{animation:none}.flip .inner{transition:none!important}}
+.eyebrow{display:inline-block;align-self:flex-start;font:500 12px/1 var(--f-data);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  background:var(--room-soft);border-radius:999px;padding:7px 12px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.05;margin:0;text-wrap:balance;color:var(--ink)}
+h1{font-size:clamp(40px,7vw,78px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(28px,4.2vw,44px);font-weight:700}
+h3{font-size:21px;font-weight:600}
+h1 .hl,h2 .hl{background:linear-gradient(transparent 62%, color-mix(in srgb,var(--gold) 80%,transparent) 62% 92%, transparent 92%);padding:0 .08em}
+p{margin:0;max-width:65ch}
+.lead{font-size:clamp(18px,2.1vw,21px)}
+.muted{color:var(--muted)}
+.z{color:var(--zahra-ink)} .e{color:var(--emma-ink)} .g{color:var(--room)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.split>*{min-width:0}
+.side{border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;border:2.5px solid var(--ink);position:relative}
+.side.zs{background:var(--zahra-soft) var(--pat-z);box-shadow:5px 5px 0 var(--zahra)}
+.side.es{background:var(--emma-soft) var(--pat-e);box-shadow:5px 5px 0 var(--emma)}
+.side>h3{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.side.zs>h3::before,.side.es>h3::before{content:"";width:48px;height:48px;flex:none;border-radius:50%;border:2.5px solid var(--ink);background:#fff center/88% no-repeat}
+.side.zs>h3::before{background-image:var(--av-z)} .side.es>h3::before{background-image:var(--av-e)}
+.side h3 .tag{font:500 11px/1 var(--f-data);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);flex-basis:100%;margin-left:58px;margin-top:-8px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.grid>*{min-width:0}
+.card{background:var(--panel);border:2.5px solid var(--ink);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:6px;box-shadow:4px 4px 0 var(--ink)}
+.grid>.card:nth-child(4n+1){background:#fff7d6} .grid>.card:nth-child(4n+2){background:#e4f8f4}
+.grid>.card:nth-child(4n+3){background:#ffe9e2} .grid>.card:nth-child(4n+4){background:#ece6ff}
+button.card{cursor:pointer;transition:transform .15s, box-shadow .15s}
+button.card:hover,.step[data-pop]:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.hots{display:flex;flex-wrap:wrap;gap:10px}
+.hot{font:600 15px/1.2 var(--f-display);color:var(--ink);background:var(--gold);border:2.5px solid var(--ink);border-radius:999px;
+  padding:8px 16px 8px 8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-align:left;box-shadow:3px 3px 0 var(--ink);transition:transform .15s, box-shadow .15s}
+.hot::before{content:"+";flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px;line-height:1;
+  animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 40%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
+@media (prefers-reduced-motion:reduce){.hot::before{animation:none}}
+.hot:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.hot:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.hot.seen::before{content:"✓";background:var(--mint);animation:none}
+.hot.zb{background:#bfd0ff} .hot.eb{background:#ffc7b6}
+button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--room);outline-offset:3px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.btn{font:600 16px/1 var(--f-display);border-radius:999px;padding:12px 22px;cursor:pointer;border:2.5px solid var(--ink);background:var(--panel);color:var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .15s, box-shadow .15s}
+.btn:hover:not([disabled]){transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.btn.primary{background:var(--room);color:#fff}
+.btn[disabled]{opacity:.35;cursor:default}
+.count{font:500 14px var(--f-data);color:var(--ink);font-variant-numeric:tabular-nums;background:var(--panel);border:2px solid var(--ink);border-radius:999px;padding:6px 12px}
+/* modal */
+.modal{position:fixed;inset:0;background:color-mix(in srgb,var(--ink) 55%,transparent);display:flex;align-items:center;justify-content:center;z-index:20;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal .box{background:var(--panel);border:3px solid var(--ink);border-radius:24px;max-width:580px;width:100%;box-shadow:8px 8px 0 var(--gold);
+  max-height:85vh;overflow:auto;padding:0 0 22px;display:flex;flex-direction:column;gap:12px;animation:pop .35s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.modal .box::before{content:"";display:block;height:70px;flex:none;border-bottom:3px solid var(--ink);
+  background:var(--room-soft) var(--pat-r)}
+.modal .box.zm{box-shadow:8px 8px 0 var(--zahra)} .modal .box.zm::before{background:var(--zahra-soft) var(--pat-z)}
+.modal .box.em{box-shadow:8px 8px 0 var(--emma)} .modal .box.em::before{background:var(--emma-soft) var(--pat-e)}
+.modal .close{position:absolute;align-self:flex-end;margin:14px 14px 0 0;padding:9px 16px;font-size:14px}
+.modal .box{position:relative}
+.mbody{display:flex;flex-direction:column;gap:12px;padding:0 24px}
+.cite{font:500 12.5px/1.4 var(--f-data);color:var(--muted)}
+.mbody .cite{border-top:2px dashed var(--line);padding-top:10px}
+/* cover */
+.slide.cover{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);column-gap:clamp(18px,4vw,48px);row-gap:18px;align-content:center}
+.slide.cover>*{grid-column:1}
+.slide.cover>.eyebrow{justify-self:start}
+.slide.cover>.diptych{grid-column:2;grid-row:1 / span 12;align-self:center}
+.diptych{display:flex;gap:14px;justify-content:center;align-items:flex-end}
+.diptych figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:210px;min-width:0}
+.diptych figure>svg{width:100%;height:auto;display:block;filter:drop-shadow(5px 5px 0 var(--ink))}
+.diptych figcaption{text-align:center;font:600 22px/1.1 var(--f-display)}
+.diptych figcaption small{display:block;font:500 11px/1.3 var(--f-data);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.diptych figure:first-child{transform:rotate(-2deg)} .diptych figure:last-child{transform:rotate(2deg) translateY(-14px)}
+/* stats */
+.big{font-family:var(--f-display);font-weight:700;font-size:clamp(42px,7vw,74px);line-height:1;font-variant-numeric:tabular-nums}
+.bar{display:grid;grid-template-columns:96px 1fr auto;gap:12px;align-items:center;font:600 15px var(--f-display)}
+.bar .track{height:28px;background:#f1eefb;border:2.5px solid var(--ink);border-radius:999px;overflow:hidden}
+.bar .fill{height:100%;border-right:2.5px solid var(--ink)}
+.bar b{font:500 15px var(--f-data)}
+.dotgrid{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;max-width:340px}
+.dotgrid i{aspect-ratio:1;border-radius:50%;background:#fff;border:1.5px solid color-mix(in srgb,var(--ink) 35%,transparent);display:block}
+/* flip */
+.flip{perspective:900px;background:none;border:0;padding:0;cursor:pointer;text-align:left;color:inherit;font:inherit;min-height:190px}
+.flip .inner{position:relative;width:100%;height:100%;min-height:190px;transition:transform .6s cubic-bezier(.3,.9,.3,1.1);transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px;
+  background:var(--room-soft) var(--pat-r);border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);overflow:auto}
+.flip .face h3{background:var(--panel);border:2px solid var(--ink);border-radius:12px;padding:10px 12px}
+.flip .back{transform:rotateY(180deg);background:#fff7d6;}
+.flip .hint{margin-top:auto;align-self:flex-start;font:500 11px/1 var(--f-data);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;border-radius:999px;padding:6px 10px}
+/* quiz */
+.q{display:flex;flex-direction:column;gap:12px}
+.opts{display:grid;gap:10px}
+.opt{font:600 16.5px/1.35 var(--f-body);text-align:left;background:var(--panel);color:var(--ink);border:2.5px solid var(--ink);border-radius:14px;padding:12px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+.opt:hover{transform:translate(-2px,-2px)}
+.opt.ok{background:#c9f5e6;box-shadow:3px 3px 0 var(--mint)} .opt.ko{background:#ffd3cc;box-shadow:3px 3px 0 var(--emma)}
+.fb{border:2.5px dashed var(--ink);border-radius:14px;padding:10px 14px;background:#fff7d6}
+/* timeline */
+.steps{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
+.step{flex:1 1 130px;min-width:0;border-radius:14px;padding:12px;font-size:15px;border:2.5px solid var(--ink);background:var(--panel);display:flex;flex-direction:column;gap:4px;box-shadow:3px 3px 0 var(--ink);transition:transform .15s, box-shadow .15s}
+.steps .step:nth-child(5n+1){background:#e4f8f4}.steps .step:nth-child(5n+2){background:#fff7d6}.steps .step:nth-child(5n+3){background:#ece6ff}.steps .step:nth-child(5n+4){background:#ffe9e2}.steps .step:nth-child(5n+5){background:#e3eaff}
+.step b{font:600 17px/1.15 var(--f-display)} .step small{font:500 11.5px var(--f-data);color:var(--muted)}
+.steps .step.block{background:repeating-linear-gradient(135deg,#ffd3cc 0 10px,#fff 10px 20px);box-shadow:3px 3px 0 var(--emma)}
+.refs{display:flex;flex-direction:column;gap:12px;padding-left:0;list-style:none;margin:0}
+.refs li{padding:10px 14px 10px calc(14px + 2em);text-indent:-2em;font-size:15px;max-width:none;background:#faf8ff;border-left:5px solid var(--room);border-radius:8px;overflow-wrap:anywhere}
+.refs li i{font-style:italic}
+.note{font:500 12.5px/1.5 var(--f-data);color:var(--muted)}
+table td,table th{border-color:var(--line)!important}
+table thead th{background:var(--room-soft)}
+input[type=range]{accent-color:var(--room)!important}
+@media (max-width:760px){
+  .slide.cover{grid-template-columns:1fr}
+  .slide.cover>.diptych{grid-column:1;grid-row:auto;order:-1;max-width:420px}
+  .split{grid-template-columns:1fr}
+  .slide{min-height:0}
+  .bar{grid-template-columns:72px 1fr auto}
+  .btn{padding:11px 16px;font-size:15px}
+  .nav .btn{white-space:nowrap}
+}
+
+:root{--room:#7b5cff;--room-soft:#ece6ff;--pat-z:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%220%200%2044%2044%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%232f5bea%22%20stroke-opacity%3D%22.16%22%20stroke-width%3D%221.6%22%3E%3Cpath%20d%3D%22M22%206%20L26.6%2015.4%20L37%2017%20L29.5%2024.4%20L31.3%2035%20L22%2030%20L12.7%2035%20L14.5%2024.4%20L7%2017%20L17.4%2015.4%20Z%22/%3E%3Crect%20x%3D%2215%22%20y%3D%2215%22%20width%3D%2214%22%20height%3D%2214%22%20transform%3D%22rotate%2845%2022%2022%29%22/%3E%3C/g%3E%3C/svg%3E");--pat-e:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ff6b4a%22%20stroke-opacity%3D%22.2%22%20stroke-width%3D%221.6%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2210%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2230%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2220%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2220%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%222.5%22%20fill%3D%22%23ff6b4a%22%20fill-opacity%3D%22.2%22/%3E%3C/g%3E%3C/svg%3E");--pat-r:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%3E%3Cpath%20d%3D%22M0%2015%20Q7.5%207%2015%2015%20T30%2015%22%20fill%3D%22none%22%20stroke%3D%22%237b5cff%22%20stroke-opacity%3D%22.22%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");--av-z:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20150%22%3E%3Cpath%20d%3D%22M18%20150%20C18%20112%2036%2098%2060%2098%20C84%2098%20102%20112%20102%20150Z%22%20fill%3D%22%232f5bea%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cg%20fill%3D%22%23ffc93c%22%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%22122%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%22130%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%22122%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%22142%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22142%22%20r%3D%223%22/%3E%3C/g%3E%0A%3Cpath%20d%3D%22M28%2074%20C24%2032%2042%2016%2060%2016%20C78%2016%2096%2032%2092%2074%20C94%2096%2080%20108%2060%20108%20C40%20108%2026%2096%2028%2074Z%22%20fill%3D%22%233cc7b9%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cellipse%20cx%3D%2260%22%20cy%3D%2263%22%20rx%3D%2222%22%20ry%3D%2224%22%20fill%3D%22%23c98b62%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cpath%20d%3D%22M39%2056%20C42%2042%2051%2038%2060%2038%20C69%2038%2078%2042%2081%2056%20C73%2048%2066%2046%2060%2047%20C54%2046%2047%2048%2039%2056Z%22%20fill%3D%22%232b1d16%22/%3E%0A%3Cpath%20d%3D%22M35%2064%20C33%2036%2047%2028%2060%2028%20C73%2028%2087%2036%2085%2064%22%20fill%3D%22none%22%20stroke%3D%22%232a9d92%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22/%3E%0A%3Ccircle%20cx%3D%2251%22%20cy%3D%2263%22%20r%3D%222.8%22%20fill%3D%22%231d1a3a%22/%3E%3Ccircle%20cx%3D%2269%22%20cy%3D%2263%22%20r%3D%222.8%22%20fill%3D%22%231d1a3a%22/%3E%0A%3Ccircle%20cx%3D%2245.5%22%20cy%3D%2271%22%20r%3D%224.2%22%20fill%3D%22%23ff8fa3%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2274.5%22%20cy%3D%2271%22%20r%3D%224.2%22%20fill%3D%22%23ff8fa3%22%20opacity%3D%22.55%22/%3E%0A%3Cpath%20d%3D%22M53%2075%20Q60%2081%2067%2075%22%20fill%3D%22none%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E");--av-e:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20150%22%3E%3Cpath%20d%3D%22M18%20150%20C18%20112%2036%2098%2060%2098%20C84%2098%20102%20112%20102%20150Z%22%20fill%3D%22%23ff6b4a%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cpath%20d%3D%22M44%20104%20L60%20116%20L76%20104%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%0A%3Cpath%20d%3D%22M86%2042%20C104%2046%20108%2070%2098%2088%20C96%2072%2092%2060%2082%2052Z%22%20fill%3D%22%238a5330%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cpath%20d%3D%22M33%2070%20C29%2036%2045%2026%2060%2026%20C77%2026%2092%2037%2087%2070%20C87%2084%2082%2092%2076%2094%20L44%2094%20C38%2092%2033%2084%2033%2070Z%22%20fill%3D%22%238a5330%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cellipse%20cx%3D%2260%22%20cy%3D%2264%22%20rx%3D%2222%22%20ry%3D%2224%22%20fill%3D%22%23f6cfae%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%223%22/%3E%0A%3Cpath%20d%3D%22M38%2060%20C37%2042%2049%2034%2061%2034%20C74%2034%2084%2044%2082%2058%20C74%2048%2064%2045%2054%2047%20C47%2049%2042%2054%2038%2060Z%22%20fill%3D%22%238a5330%22/%3E%0A%3Ccircle%20cx%3D%2286%22%20cy%3D%2244%22%20r%3D%225%22%20fill%3D%22%23ffc93c%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%222.5%22/%3E%0A%3Ccircle%20cx%3D%2251%22%20cy%3D%2263%22%20r%3D%222.8%22%20fill%3D%22%231d1a3a%22/%3E%3Ccircle%20cx%3D%2269%22%20cy%3D%2263%22%20r%3D%222.8%22%20fill%3D%22%231d1a3a%22/%3E%0A%3Ccircle%20cx%3D%2245.5%22%20cy%3D%2271%22%20r%3D%224.2%22%20fill%3D%22%23ff8fa3%22%20opacity%3D%22.55%22/%3E%3Ccircle%20cx%3D%2274.5%22%20cy%3D%2271%22%20r%3D%224.2%22%20fill%3D%22%23ff8fa3%22%20opacity%3D%22.55%22/%3E%0A%3Cpath%20d%3D%22M53%2075%20Q60%2081%2067%2075%22%20fill%3D%22none%22%20stroke%3D%22%231d1a3a%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E")}</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><span class="plaque"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4h10v17M4 21h16M13 12h.01" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Entrada al museo</span><div class="dots" role="group" aria-label="Escenas"></div></header>
+  <main class="stage"><section class="slide cover" aria-roledescription="escena"><div class="eyebrow">Museo del Ciclo Vital · De 0 a 12 años · Entrada</div>
+<h1>Dos niñas,<br><span class="z">dos</span> <span class="e">futuros</span></h1>
+<p class="lead">Nacieron el mismo día. Tienen el mismo potencial. Lo único que cambia es <b>dónde</b> nacieron.</p>
+<div class="diptych"><figure><svg viewBox="0 0 200 270" aria-hidden="true"><defs><pattern id="gz" width="36" height="36" patternUnits="userSpaceOnUse">
+<rect width="36" height="36" fill="#bfd0ff"/><path d="M18 4 L21.8 11.8 L30.4 13 L24.2 19.1 L25.7 27.8 L18 23.7 L10.3 27.8 L11.8 19.1 L5.6 13 L14.2 11.8 Z" fill="#2f5bea" opacity=".28"/></pattern>
+<clipPath id="cz"><path d="M8 268 L8 112 Q8 44 100 6 Q192 44 192 112 L192 268 Z"/></clipPath></defs>
+<path d="M8 268 L8 112 Q8 44 100 6 Q192 44 192 112 L192 268 Z" fill="url(#gz)" stroke="#1d1a3a" stroke-width="4"/>
+<g clip-path="url(#cz)"><circle cx="150" cy="70" r="16" fill="#ffc93c" stroke="#1d1a3a" stroke-width="3"/><path d="M0 230 Q50 200 100 222 T200 214 L200 270 L0 270Z" fill="#9fb4f5"/><svg x="40" y="118" width="120" height="150" viewBox="0 0 120 150"><path d="M18 150 C18 112 36 98 60 98 C84 98 102 112 102 150Z" fill="#2f5bea" stroke="#1d1a3a" stroke-width="3"/>
+<g fill="#ffc93c"><circle cx="44" cy="122" r="3"/><circle cx="60" cy="130" r="3"/><circle cx="76" cy="122" r="3"/><circle cx="52" cy="142" r="3"/><circle cx="68" cy="142" r="3"/></g>
+<path d="M28 74 C24 32 42 16 60 16 C78 16 96 32 92 74 C94 96 80 108 60 108 C40 108 26 96 28 74Z" fill="#3cc7b9" stroke="#1d1a3a" stroke-width="3"/>
+<ellipse cx="60" cy="63" rx="22" ry="24" fill="#c98b62" stroke="#1d1a3a" stroke-width="3"/>
+<path d="M39 56 C42 42 51 38 60 38 C69 38 78 42 81 56 C73 48 66 46 60 47 C54 46 47 48 39 56Z" fill="#2b1d16"/>
+<path d="M35 64 C33 36 47 28 60 28 C73 28 87 36 85 64" fill="none" stroke="#2a9d92" stroke-width="5" stroke-linecap="round"/>
+<circle cx="51" cy="63" r="2.8" fill="#1d1a3a"/><circle cx="69" cy="63" r="2.8" fill="#1d1a3a"/>
+<circle cx="45.5" cy="71" r="4.2" fill="#ff8fa3" opacity=".55"/><circle cx="74.5" cy="71" r="4.2" fill="#ff8fa3" opacity=".55"/>
+<path d="M53 75 Q60 81 67 75" fill="none" stroke="#1d1a3a" stroke-width="2.4" stroke-linecap="round"/></svg></g>
+<path d="M8 268 L8 112 Q8 44 100 6 Q192 44 192 112 L192 268 Z" fill="none" stroke="#1d1a3a" stroke-width="4"/></svg><figcaption class="z">Zahra<small>Kabul, Afganistán</small></figcaption></figure>
+<figure><svg viewBox="0 0 200 270" aria-hidden="true"><defs><pattern id="ge" width="34" height="34" patternUnits="userSpaceOnUse">
+<rect width="34" height="34" fill="#ffd3c4"/><g fill="none" stroke="#ff6b4a" stroke-opacity=".4" stroke-width="2"><circle cx="17" cy="8" r="5"/><circle cx="17" cy="26" r="5"/><circle cx="8" cy="17" r="5"/><circle cx="26" cy="17" r="5"/></g></pattern>
+<clipPath id="ce"><path d="M8 268 L8 100 A92 92 0 0 1 192 100 L192 268 Z"/></clipPath></defs>
+<path d="M8 268 L8 100 A92 92 0 0 1 192 100 L192 268 Z" fill="url(#ge)" stroke="#1d1a3a" stroke-width="4"/>
+<g clip-path="url(#ce)"><circle cx="52" cy="66" r="16" fill="#ffc93c" stroke="#1d1a3a" stroke-width="3"/><path d="M0 226 Q60 206 110 224 T200 210 L200 270 L0 270Z" fill="#ffab94"/><svg x="40" y="118" width="120" height="150" viewBox="0 0 120 150"><path d="M18 150 C18 112 36 98 60 98 C84 98 102 112 102 150Z" fill="#ff6b4a" stroke="#1d1a3a" stroke-width="3"/>
+<path d="M44 104 L60 116 L76 104" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M86 42 C104 46 108 70 98 88 C96 72 92 60 82 52Z" fill="#8a5330" stroke="#1d1a3a" stroke-width="3"/>
+<path d="M33 70 C29 36 45 26 60 26 C77 26 92 37 87 70 C87 84 82 92 76 94 L44 94 C38 92 33 84 33 70Z" fill="#8a5330" stroke="#1d1a3a" stroke-width="3"/>
+<ellipse cx="60" cy="64" rx="22" ry="24" fill="#f6cfae" stroke="#1d1a3a" stroke-width="3"/>
+<path d="M38 60 C37 42 49 34 61 34 C74 34 84 44 82 58 C74 48 64 45 54 47 C47 49 42 54 38 60Z" fill="#8a5330"/>
+<circle cx="86" cy="44" r="5" fill="#ffc93c" stroke="#1d1a3a" stroke-width="2.5"/>
+<circle cx="51" cy="63" r="2.8" fill="#1d1a3a"/><circle cx="69" cy="63" r="2.8" fill="#1d1a3a"/>
+<circle cx="45.5" cy="71" r="4.2" fill="#ff8fa3" opacity=".55"/><circle cx="74.5" cy="71" r="4.2" fill="#ff8fa3" opacity=".55"/>
+<path d="M53 75 Q60 81 67 75" fill="none" stroke="#1d1a3a" stroke-width="2.4" stroke-linecap="round"/></svg></g>
+<path d="M8 268 L8 100 A92 92 0 0 1 192 100 L192 268 Z" fill="none" stroke="#1d1a3a" stroke-width="4"/></svg><figcaption class="e">Emma<small>Madrid, España</small></figcaption></figure></div>
+<div class="hots"><button class="hot" type="button" data-pop="p-fecha">¿Por qué el 15 de agosto de 2021?</button>
+<button class="hot" type="button" data-pop="p-reales">¿Son personas reales?</button></div>
+<div><button class="btn primary" type="button" data-go="1">Entrar al museo →</button></div></section>
+<section class="slide" aria-roledescription="escena"><div class="eyebrow">Escena 2 · El punto de partida</div>
+<h2>El mismo día, dos mundos</h2>
+<div class="split">
+ <div class="side zs"><h3 class="z">Zahra<span class="tag">Kabul · Afganistán</span></h3>
+  <p>Nace el día en que los talibanes entran en Kabul. Su país cambia de régimen en sus primeras horas de vida.</p>
+  <div class="hots"><button class="hot zb" type="button" data-tone="zm" data-pop="p-z1">Su familia</button><button class="hot zb" type="button" data-tone="zm" data-pop="p-z2">Su país en 2021</button></div></div>
+ <div class="side es"><h3 class="e">Emma<span class="tag">Madrid · España</span></h3>
+  <p>Nace en un hospital público, en un país con sanidad universal y educación obligatoria y gratuita desde los 6 años.</p>
+  <div class="hots"><button class="hot eb" type="button" data-tone="em" data-pop="p-e1">Su familia</button><button class="hot eb" type="button" data-tone="em" data-pop="p-e2">Su país en 2021</button></div></div>
+</div>
+<p class="muted">Pulsa los botones para abrir cada ventana.</p></section>
+<section class="slide" aria-roledescription="escena"><div class="eyebrow">Escena 3 · Qué estudia el ciclo vital</div>
+<h2>El desarrollo es un proceso continuo</h2>
+<p>La psicología del ciclo vital entiende el desarrollo como un proceso continuo que empieza antes de nacer y que depende del contexto (Baltes, 1987). En este museo seguimos a las dos niñas solo de los 0 a los 12 años. Dale la vuelta a cada tarjeta.</p>
+<div class="grid">
+ <button class="flip" type="button" aria-pressed="false"><div class="inner"><div class="face"><h3>Es un proceso continuo</h3><span class="hint">Pulsa para girar</span></div><div class="face back"><p>Ninguna etapa es más importante que otra: lo que le pasa a Zahra a los 12 años marca todo su futuro.</p></div></div></button>
+ <button class="flip" type="button" aria-pressed="false"><div class="inner"><div class="face"><h3>Es multidimensional</h3><span class="hint">Pulsa para girar</span></div><div class="face back"><p>Cambian a la vez el cuerpo, la mente y las relaciones. Las tres dimensiones se influyen entre sí.</p></div></div></button>
+ <button class="flip" type="button" aria-pressed="false"><div class="inner"><div class="face"><h3>Es plástico</h3><span class="hint">Pulsa para girar</span></div><div class="face back"><p>Las trayectorias pueden cambiar. Una buena intervención a tiempo puede modificar un futuro probable.</p></div></div></button>
+ <button class="flip" type="button" aria-pressed="false"><div class="inner"><div class="face"><h3>Depende del contexto</h3><span class="hint">Pulsa para girar</span></div><div class="face back"><p>La historia, la cultura y las leyes del lugar donde se nace forman parte del desarrollo. Es la clave de este museo.</p></div></div></button>
+</div></section>
+<section class="slide" aria-roledescription="escena"><div class="eyebrow">Escena 4 · Plano del museo</div>
+<h2>Tu recorrido</h2>
+<div class="grid">
+ <button class="card" type="button" data-pop="m1" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Sala 1</span><h3>Crecimiento</h3><p class="muted">Talla, peso y los primeros 1.000 días.</p></button>
+ <button class="card" type="button" data-pop="m2" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Sala 2</span><h3>Maduración</h3><p class="muted">El reloj biológico y lo que lo acelera o frena.</p></button>
+ <button class="card" type="button" data-pop="m3" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Sala 3</span><h3>Aprendizaje</h3><p class="muted">La escuela que se abre y la que se cierra.</p></button>
+ <button class="card" type="button" data-pop="m4" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Sala 4</span><h3>Desarrollo</h3><p class="muted">Todo junto, dentro de su contexto.</p></button>
+ <button class="card" type="button" data-pop="m5" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Sala 5</span><h3>Dos vidas, una misma edad</h3><p class="muted">Mueve la edad y compara.</p></button>
+ <button class="card" type="button" data-pop="m6" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Sala interactiva</span><h3>Pon a prueba lo aprendido</h3><p class="muted">Quiz, clasificación y decisiones.</p></button>
+ <button class="card" type="button" data-pop="m7" style="cursor:pointer;text-align:left;color:inherit;font:inherit"><span class="eyebrow">Salida</span><h3>Reflexión</h3><p class="muted">Lo que no se ve.</p></button>
+</div></section>
+<section class="slide" aria-roledescription="escena"><div class="eyebrow">Escena 5 · Antes de empezar</div>
+<h2>Tu hipótesis de entrada</h2>
+<div class="q"><p class="lead">¿Qué crees que pesará más en la vida de Zahra y Emma?</p>
+<div class="opts">
+ <button class="opt" type="button" data-ok="1">El lugar donde nacen (contexto)</button>
+ <button class="opt" type="button" data-ok="1">Sus genes y su biología</button>
+ <button class="opt" type="button" data-ok="1">Las dos cosas, en interacción</button>
+</div>
+<div class="fb" hidden><p><span class="res"></span>Aquí no hay respuesta incorrecta. Guarda tu hipótesis y compruébala en la Salida. Pista: la mayoría de autores hablan de <b>interacción</b> entre herencia y ambiente.</p></div></div>
+<div class="card"><h3>Cómo se visita</h3>
+<p><span class="g">Botones dorados con +</span>: abren una ventana con información. · <b>Tarjetas</b>: púlsalas para darles la vuelta. · <b>Flechas</b> del teclado o botones inferiores: cambias de escena.</p></div></section>
+<section class="slide"><div class="eyebrow">Fuentes de esta sala · APA 7.ª ed.</div><h2>Bibliografía</h2>
+<ul class="refs"><li>Baltes, P. B. (1987). Theoretical propositions of life-span developmental psychology: On the dynamics between growth and decline. <i>Developmental Psychology, 23</i>(5), 611–626. https://doi.org/10.1037/0012-1649.23.5.611</li><li>Elder, G. H., Jr. (1998). The life course as developmental theory. <i>Child Development, 69</i>(1), 1–12. https://doi.org/10.1111/j.1467-8624.1998.tb06128.x</li><li>Papalia, D. E., Duskin Feldman, R., &amp; Martorell, G. (2012). <i>Desarrollo humano</i> (12.ª ed.). McGraw-Hill.</li><li>UNESCO. (2024, 15 de agosto). <i>Afghanistan: 1.4 million girls still banned from secondary school by de facto authorities</i> [Comunicado de prensa]. UNESCO.</li></ul><p class="note">Zahra y Emma son personajes ficticios. Sus trayectorias se construyen a partir de datos poblacionales reales; cada vida concreta es única.</p></section></main>
+  <nav class="nav"><button class="btn" id="prev" type="button">← Anterior</button><span class="count"></span><button class="btn primary" id="next" type="button">Siguiente →</button></nav>
+</div>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true"><div class="box"><button class="btn close" type="button">Cerrar ✕</button><div class="mbody"></div></div></div>
+<template id="p-fecha"><h3>15 de agosto de 2021</h3><p>Ese día los talibanes tomaron Kabul. Elegimos esta fecha para que las dos niñas compartan exactamente el mismo <i>tiempo histórico</i>, uno de los principios de la perspectiva del curso de vida (Elder, 1998). Lo que cambia es el lugar.</p><p class="cite">Elder (1998)</p></template>
+<template id="p-reales"><h3>Personajes ficticios, datos reales</h3><p>Zahra y Emma no existen. Su historia se ha construido con datos de organismos internacionales y artículos científicos. Representan trayectorias <b>probables</b>, no destinos.</p></template>
+<template id="p-z1"><h3>La familia de Zahra</h3><p>Familia de clase trabajadora en Kabul. Su madre se casó joven y Zahra es la tercera hija. Su padre ha perdido parte de sus ingresos con la crisis económica posterior a 2021.</p></template>
+<template id="p-z2"><h3>Afganistán en 2021</h3><p>Cambio de régimen, crisis económica y humanitaria, y nuevas normas que limitan la educación, el trabajo y la movilidad de mujeres y niñas.</p><p>Afganistán es hoy el único país del mundo que prohíbe a niñas y mujeres estudiar secundaria y universidad.</p><p class="cite">UNESCO (2024)</p></template>
+<template id="p-e1"><h3>La familia de Emma</h3><p>Familia de clase media en Madrid. Su madre tuvo a Emma con 33 años y ambos progenitores trabajan. Tiene acceso a pediatría, escuela infantil y actividades extraescolares.</p></template>
+<template id="p-e2"><h3>España en 2021</h3><p>Estado democrático con sanidad universal, escolarización obligatoria y gratuita desde los 6 años e igualdad legal entre hombres y mujeres.</p></template>
+<template id="m1"><h3>Sala 1 · Crecimiento</h3><p>Cambios cuantitativos del cuerpo. Veremos cómo la nutrición y la salud de los primeros años dejan huella en la talla.</p></template>
+<template id="m2"><h3>Sala 2 · Maduración</h3><p>Cambios programados biológicamente que siguen una secuencia común. El reloj es el mismo; el entorno cambia su ritmo y su significado.</p></template>
+<template id="m3"><h3>Sala 3 · Aprendizaje</h3><p>Cambios que vienen de la experiencia. La escuela es la gran diferencia entre las dos niñas.</p></template>
+<template id="m4"><h3>Sala 4 · Desarrollo</h3><p>Crecimiento, maduración y aprendizaje se combinan dentro de un contexto. Usaremos el modelo ecológico de Bronfenbrenner.</p></template>
+<template id="m5"><h3>Sala 5 · Dos vidas, una misma edad</h3><p>Una línea de vida con un deslizador: elige una edad y mira dónde está cada una.</p></template>
+<template id="m6"><h3>Sala interactiva</h3><p>Juegos para comprobar lo aprendido.</p></template>
+<template id="m7"><h3>Salida y reflexión</h3><p>Ideas clave, preguntas para pensar y la bibliografía completa.</p></template>
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.querySelector('.dots'); const count=document.querySelector('.count');
+  const prev=document.getElementById('prev'), next=document.getElementById('next');
+  let i=0;
+  slides.forEach((s,k)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Escena '+(k+1));b.onclick=()=>go(k);dots.appendChild(b)});
+  function go(k){i=Math.max(0,Math.min(slides.length-1,k));slides.forEach((s,n)=>s.hidden=n!==i);
+    [...dots.children].forEach((d,n)=>d.setAttribute('aria-current',n===i));
+    count.textContent=(i+1)+' / '+slides.length;prev.disabled=i===0;next.disabled=i===slides.length-1;
+    next.textContent=(i===slides.length-2&&slides[slides.length-1].querySelector('.refs'))?'Bibliografía →':'Siguiente →';
+    document.querySelector('.stage').scrollTop=0;}
+  prev.onclick=()=>go(i-1); next.onclick=()=>go(i+1);
+  document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+  document.addEventListener('keydown',e=>{if(document.querySelector('.modal:not([hidden])'))return;
+    if(e.target.matches('input,textarea'))return;
+    if(e.key==='ArrowRight')go(i+1); if(e.key==='ArrowLeft')go(i-1);});
+  // modal
+  const modal=document.getElementById('modal'), box=modal.querySelector('.box'), body=modal.querySelector('.mbody');
+  let opener=null;
+  document.addEventListener('click',e=>{const h=e.target.closest('[data-pop]');if(!h)return;
+    const t=document.getElementById(h.dataset.pop);if(!t)return;opener=h;h.classList.add('seen');
+    body.innerHTML=t.innerHTML;box.className='box '+(h.dataset.tone||'');modal.hidden=false;modal.querySelector('.close').focus();});
+  document.addEventListener('keydown',e=>{const h=e.target.closest&&e.target.closest('[data-pop][tabindex]');if(h&&(e.key==='Enter'||e.key===' ')){e.preventDefault();h.dispatchEvent(new MouseEvent('click',{bubbles:true}));}});
+  function close(){modal.hidden=true;if(opener)opener.focus();}
+  modal.querySelector('.close').onclick=close;
+  modal.addEventListener('click',e=>{if(e.target===modal)close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close()});
+  // flips
+  document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>{f.classList.toggle('on');f.setAttribute('aria-pressed',f.classList.contains('on'))});
+  // quizzes
+  document.querySelectorAll('.q').forEach(q=>{const fb=q.querySelector('.fb');
+    q.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{if(q.dataset.done)return;q.dataset.done=1;
+      const ok=o.dataset.ok==='1';o.classList.add(ok?'ok':'ko');
+      if(!ok)q.querySelector('.opt[data-ok="1"]').classList.add('ok');
+      fb.hidden=false;fb.querySelector('.res').textContent=ok?'¡Correcto! ':'No exactamente. ';
+      document.dispatchEvent(new CustomEvent('quiz',{detail:{ok}}));});});
+  // reveal
+  document.querySelectorAll('[data-reveal]').forEach(b=>b.onclick=()=>{const t=document.getElementById(b.dataset.reveal);t.hidden=false;b.hidden=true;});
+  go(0);
+  window.__go=go;
+})();
+</script>
+<script></script>
+</body>
+</html>
